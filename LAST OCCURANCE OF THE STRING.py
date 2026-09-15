@@ -1,0 +1,2 @@
+s = "rahman"
+print("'a' occured at the index: ", s.rfind("a"))
