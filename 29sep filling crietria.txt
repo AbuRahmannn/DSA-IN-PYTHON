@@ -1,0 +1,66 @@
+#filling crietria
+
+
+i = 1, j =1
+a) fill value from above
+dp[i][j] = dp[i-1][j]
+
+b) fill value from left
+dp[i][j] = dp[i][j-1]
+
+c) fill value from diagonal
+dp[i][j] = dp[i-1][j-1]
+
+
+if coin_value > amt
+	cop value from value
+else
+a) exclude the coin ->get ways
+b) include the coin -> get ways
+c) add(a) & (b)
+
+
+
+coin	0	1	2	3	4	5	6	7	8
+0	1	0	0	0	0	0	0	0	0
+1	1     0+1=1    0+1=1   0+1=1   0+1=1   0+1=1  0+1=1   0+1=1   0+1=1
+3	1	1	1      1+1=2   1+1=2   1+1=2  1+2=3   1+2=3   1+2=3
+5	1	1	1	2	2      2+1=3  3+1=4   3+1=4   3+2=5
+7	1	1	1	2	2	3	4     4+1=5   5+1=6
+
+
+--------------------------------------------------------------------------------------------------------------
+algorithm
+---------
+a) create a matrix of size mxn
+m = amount + 1
+n = len(coins) + 1
+dp = [[0] * m] for _ in range(n)]
+
+b) fill the base condition. set the 0th column with value "1"
+
+c) filling criteria
+> if coin_value from the above cell
+	copy value from the above cell
+	dp[i][j] = dp[i - 1][j]
+> otherwise use the below strategy
+i) Exclude the coin and get the number of ways.
+	excl = dp[i - 1][j]
+
+ii) Include the coin.Subtract the 'coin-value'
+from the 'amount'
+	sp = j - coins[i - 1]
+	incl = dp[i][sp]
+
+iii) Add (i) and (ii)
+	dp[i][j] = excl + incl
+
+d) Return the entry of the last cell
+	return	dp[n - 1][m - 1]
+
+
+amount	0	1	2	3	4	5	6	
+0	1	0	0	0	0	0	0
+1	1     0+1=1	1	1	1	1	1 
+2	1       1     1+1=2   1+1=2    1+2=3   1+2=3   1+3=4
+3	1       1       1     2+1=3    3+1=4   3+2=5   4+3=7
